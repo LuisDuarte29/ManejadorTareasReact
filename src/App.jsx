@@ -9,6 +9,7 @@ function App() {
   const [newTask, setNewTask] = useState([]);
   const [idTarea,setIdTarea] =useState(0)
   const [titleEdit,setTitleEdit] =useState('')
+
   useEffect(() => {
     setTarea(taskJson);
   }, []);
@@ -58,6 +59,8 @@ function App() {
   }
   return (
     <div className="bg-dark text-white min-vh-100 py-4">
+
+      <h1 className="text-center">Lista de Tareas</h1>
       <TaskForm
         newTask={newTask}
         setNewTask={setNewTask}
