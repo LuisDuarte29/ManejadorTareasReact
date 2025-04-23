@@ -4,7 +4,7 @@ import { CiCircleRemove } from "react-icons/ci";
 import { FcRemoveImage } from "react-icons/fc";
 import { CiEdit } from "react-icons/ci";
 
-function TaskList({ tarea, RemoveTask }) {
+function TaskList({ tarea, RemoveTask, EditTask }) {
   return (
     <div className="container d-flex flex-column align-items-center mt-4 align">
       {tarea.length < 1 ? (
@@ -16,7 +16,7 @@ function TaskList({ tarea, RemoveTask }) {
             style={{ maxWidth: "600px" }}
             key={tar.id}
           >
-            <div className="card-body d-flex justify-content-between align-items-center">
+            <div className="card-body d-flex justify-content-between align-items-center align">
               <h5 className="card-title mb-0">{tar.title}</h5>
               <div className="d-flex gap-2">
                 <button
@@ -27,7 +27,7 @@ function TaskList({ tarea, RemoveTask }) {
                 </button>
                 <button
                   className="btn btn-outline-primary"
-                  onClick={() => RemoveTask(tar.id)}
+                  onClick={() => EditTask(tar.id)}
                 >
                   <CiEdit size={30} />
                 </button>
