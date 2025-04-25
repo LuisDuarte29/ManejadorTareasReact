@@ -3,6 +3,7 @@ import TaskList from "./TaskList";
 import TaskForm from "./TaskForm";
 import { taskJson } from "./TaskJson";
 import { TaskFilter } from "./TaskFilter";
+import {TaskCount}  from "./TaskCount"
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 function App() {
   //desde el contexto de la tarea
@@ -26,7 +27,7 @@ function App() {
   const filteredTasks = tarea.filter((task) =>
     task.title.toLowerCase().includes(filterTask.trim().toLowerCase())
   );
-  
+  console.log(tarea.length)
   function createTask(e) {
     e.preventDefault();
 
@@ -81,7 +82,7 @@ function App() {
 
       </div>
         <h3 className="text-center">Lista de Tareas</h3>
- 
+        <TaskCount listaCount={filteredTasks.length} />
       <TaskList
         tarea={filteredTasks}
         RemoveTask={RemoveTask}

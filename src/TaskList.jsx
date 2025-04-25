@@ -10,8 +10,14 @@ function TaskList({ tarea, RemoveTask, EditTask }) {
     setTachados((prev) => ({
       ...prev,
       [id]: !prev[id],
+      
     }));
   };
+  const tachadoslista=(()=>tachados.forEach(element => {
+    
+  });)
+
+  
 
   return (
     <div className="container d-flex flex-column align-items-center mt-4">
