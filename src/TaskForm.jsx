@@ -4,11 +4,11 @@ function TaskForm({ newTask, createTask, setNewTask,idTarea,titleEdit,manejadorC
       className="container d-flex flex-column align-items-center mt-2"
       onSubmit={createTask}
     >
-
+  <h6>Guardar Tareas</h6>
 <input
         className="m-2 form-control"
         type="text"
-        style={{ maxWidth: 600 }}
+        style={{ maxWidth: 300 }}
         value={idTarea===0 ? newTask : titleEdit}
         onChange={idTarea===0 ? (e) => setNewTask(e.target.value) :manejadorCmbio }
       ></input>
