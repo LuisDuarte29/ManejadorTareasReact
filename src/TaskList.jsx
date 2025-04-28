@@ -3,21 +3,8 @@ import { FcRemoveImage } from "react-icons/fc";
 import { CiEdit } from "react-icons/ci";
 import { motion, AnimatePresence } from "framer-motion";
 
-function TaskList({ tarea, RemoveTask, EditTask }) {
-  const [tachados, setTachados] = useState({});
+function TaskList({ tarea, RemoveTask, EditTask,tachados, handleCambioCheck }) {
 
-  const handleCambioCheck = (id) => {
-    setTachados((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-      
-    }));
-  };
-  const tachadoslista=(()=>tachados.forEach(element => {
-    
-  });)
-
-  
 
   return (
     <div className="container d-flex flex-column align-items-center mt-4">

@@ -12,6 +12,7 @@ function App() {
   const [idTarea, setIdTarea] = useState(0);
   const [titleEdit, setTitleEdit] = useState("");
   const [filterTask, setFilter] = useState("");
+  const [cantidadTrue, setCantidadTrue] = useState(0);
 
 
   // useEffect para cargar las tareas iniciales desde el archivo JSON
@@ -27,7 +28,6 @@ function App() {
   const filteredTasks = tarea.filter((task) =>
     task.title.toLowerCase().includes(filterTask.trim().toLowerCase())
   );
-  console.log(tarea.length)
   function createTask(e) {
     e.preventDefault();
 
@@ -65,7 +65,36 @@ function App() {
     const tareaEliminada = tarea.filter((t) => t.id !== id);
 
     setTarea(tareaEliminada);
+
+    setTachados(prev => {
+      const nuevoTachados = { ...prev };
+      delete nuevoTachados[id];
+      return nuevoTachados;
+    });
+
   }
+
+
+  const [tachados, setTachados] = useState({});
+
+  const handleCambioCheck = (id) => {
+    setTachados((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+      
+    }));
+
+  };
+
+
+  //El Object.values se usa para convertir de objeto a un array ya que el filter solo se puede usar en array
+  useEffect(()=>{
+    setCantidadTrue(Object.values(tachados).filter((value) => value === true))
+
+  },[tachados])
+  console.log("Este es la cantidad de true que hay: " + cantidadTrue)
+  console.log("Este es la cantidad total de tareas: " + tachados.length)
+
   return (
     <div className="bg-dark text-white min-vh-100 py-4">
       <div className="container d-flex gap-1">     
@@ -82,11 +111,13 @@ function App() {
 
       </div>
         <h3 className="text-center">Lista de Tareas</h3>
-        <TaskCount listaCount={filteredTasks.length} />
+        <TaskCount listaCount={filteredTasks.length} itemTachados={cantidadTrue} />
       <TaskList
         tarea={filteredTasks}
         RemoveTask={RemoveTask}
         EditTask={EditTask}
+        tachados={tachados}
+        handleCambioCheck={handleCambioCheck}
       />
     </div>
   );
