@@ -5,6 +5,7 @@ import { taskJson } from "./TaskJson";
 import { TaskFilter } from "./TaskFilter";
 import {TaskCount}  from "./TaskCount"
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { removeItem } from "framer-motion";
 function App() {
   //desde el contexto de la tarea
   const [tarea, setTarea] = useState([]);
@@ -12,7 +13,8 @@ function App() {
   const [idTarea, setIdTarea] = useState(0);
   const [titleEdit, setTitleEdit] = useState("");
   const [filterTask, setFilter] = useState("");
-  const [cantidadTrue, setCantidadTrue] = useState(0);
+  const [cantidadTrue, setCantidadTrue] = useState([]);
+  const [tachados, setTachados] = useState({});
 
 
   // useEffect para cargar las tareas iniciales desde el archivo JSON
@@ -63,20 +65,20 @@ function App() {
 
   function RemoveTask(id) {
     const tareaEliminada = tarea.filter((t) => t.id !== id);
-
     setTarea(tareaEliminada);
-
-    setTachados(prev => {
-      const nuevoTachados = { ...prev };
-      delete nuevoTachados[id];
-      return nuevoTachados;
+    
+    //Lo que hace es decirle al id que es true si lo es, que le asigne _ y que lo agrupe con el resto
+    // pero como es de valor _ no lo agrupa y solo queda los restantes dentro de old
+    setTachados(old => {
+      const { [id]: _, ...rest } = old;
+      return rest;
+    });
+    console.log("Tarea restantes: ", tarea);
+    Object.entries(tachados).forEach(([clave, valor]) => {
+      console.log( `este es la clave ${clave}: ${valor}`);
     });
 
   }
-
-
-  const [tachados, setTachados] = useState({});
-
   const handleCambioCheck = (id) => {
     setTachados((prev) => ({
       ...prev,
@@ -89,11 +91,11 @@ function App() {
 
   //El Object.values se usa para convertir de objeto a un array ya que el filter solo se puede usar en array
   useEffect(()=>{
-    setCantidadTrue(Object.values(tachados).filter((value) => value === true))
+    setCantidadTrue(Object.values(tachados).filter((value) => value === true).length)
 
   },[tachados])
   console.log("Este es la cantidad de true que hay: " + cantidadTrue)
-  console.log("Este es la cantidad total de tareas: " + tachados.length)
+
 
   return (
     <div className="bg-dark text-white min-vh-100 py-4">
