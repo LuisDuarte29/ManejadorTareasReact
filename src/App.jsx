@@ -15,6 +15,7 @@ function App() {
   const [filterTask, setFilter] = useState("");
   const [cantidadTrue, setCantidadTrue] = useState([]);
   const [tachados, setTachados] = useState({});
+  const [resto,setResto]=useState(0)
 
 
   // useEffect para cargar las tareas iniciales desde el archivo JSON
@@ -88,6 +89,10 @@ function App() {
 
   };
 
+  useEffect(()=>{
+    
+  })
+
 
   //El Object.values se usa para convertir de objeto a un array ya que el filter solo se puede usar en array
   useEffect(()=>{
@@ -95,7 +100,16 @@ function App() {
 
   },[tachados])
   console.log("Este es la cantidad de true que hay: " + cantidadTrue)
+useEffect(()=>{
+   setResto(filteredTasks.length-cantidadTrue)  
 
+},[filteredTasks,cantidadTrue])
+
+useEffect(()=>{
+  if(resto>=4){
+    alert("Ya haz alcanzado el limite de pendientes")
+  }
+},[resto])
 
   return (
     <div className="bg-dark text-white min-vh-100 py-4">
@@ -113,7 +127,7 @@ function App() {
 
       </div>
         <h3 className="text-center">Lista de Tareas</h3>
-        <TaskCount listaCount={filteredTasks.length} itemTachados={cantidadTrue} />
+        <TaskCount listaCount={filteredTasks.length} itemTachados={cantidadTrue} resto={resto} />
       <TaskList
         tarea={filteredTasks}
         RemoveTask={RemoveTask}
