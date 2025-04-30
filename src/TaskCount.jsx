@@ -5,7 +5,8 @@ export function TaskCount({listaCount, itemTachados,resto}) {
   return (
     <div className="container d-flex flex-column align-items-center mt-4">
       <p>Hay {listaCount} tareas de los cuales {itemTachados} estan tachados</p>
-      <p>Hay {resto} pendientes</p>
+      {resto>=4 &&  <p>Hay {resto} pendientes</p> }
+     
     </div>
   )
 }

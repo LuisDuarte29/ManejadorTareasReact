@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useState,useRef,useEffect } from "react";
 import { FcRemoveImage } from "react-icons/fc";
 import { CiEdit } from "react-icons/ci";
 import { motion, AnimatePresence } from "framer-motion";
 
 function TaskList({ tarea, RemoveTask, EditTask,tachados, handleCambioCheck }) {
 
+  //el useRef se usa para hacer referencia a algo en este caso a elementos del DOM 
+  //en este caso yo hago referencia a un div que esta ultimo 
+  //lo que hace en este caso es referenciar el div y luego realizar alguna animacion o cambio sin hacer un render
+  //en este caso lo que hace es si es el div que hago referencia que me haga un scroll hacia abajo 
+  //current seria como la propiedad que esta en el elemento del DOM
+const finListaRef=useRef(null)
 
+useEffect(()=>{
+if (finListaRef.current){
+  finListaRef.current.scrollIntoView({behavior:"smooth"})
+}
+
+})
   return (
-    <div className="container d-flex flex-column align-items-center mt-4">
+    <div  className="container d-flex flex-column align-items-center mt-4">
       {tarea.length < 1 ? (
         <h1>No existen tareas</h1>
       ) : (
@@ -57,6 +69,7 @@ function TaskList({ tarea, RemoveTask, EditTask,tachados, handleCambioCheck }) {
           ))}
         </AnimatePresence>
       )}
+         <div ref={finListaRef}></div>
     </div>
   );
 }

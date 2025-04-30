@@ -6,6 +6,8 @@ import { TaskFilter } from "./TaskFilter";
 import {TaskCount}  from "./TaskCount"
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { removeItem } from "framer-motion";
+import {ToastContainer,toast} from 'react-toastify'
+import '../node_modules/react-toastify/dist/ReactToastify.css'
 function App() {
   //desde el contexto de la tarea
   const [tarea, setTarea] = useState([]);
@@ -107,7 +109,7 @@ useEffect(()=>{
 
 useEffect(()=>{
   if(resto>=4){
-    alert("Ya haz alcanzado el limite de pendientes")
+    toast.info("Ya haz alcanzado el limite de pendientes")
   }
 },[resto])
 
@@ -115,8 +117,8 @@ useEffect(()=>{
     <div className="bg-dark text-white min-vh-100 py-4">
       <div className="container d-flex gap-1">     
         <TaskFilter filter={filterTask} handleSetFilter={handleSetFilter} />
-    
-    <TaskForm
+    <ToastContainer/>
+        <TaskForm
       newTask={newTask}
       setNewTask={setNewTask}
       createTask={createTask}
